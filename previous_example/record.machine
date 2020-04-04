@@ -1,0 +1,33 @@
+{
+    "purporse": "train",
+    "machine": {
+        "machine_type": "local",
+        "hostname": "deepmd",
+        "port": 22,
+        "username": "root",
+        "password": "deepmdhost",
+        "work_path": "/root/dpmd"
+    },
+    "resources": {
+        "numb_node": 1,
+        "numb_gpu": 1,
+        "task_per_node": 4,
+        "partition": "all",
+        "exclude_list": [],
+        "mem_limit": 16,
+        "source_list": [
+            "/root/.bashrc",
+            "/root/dpmd/test_gpu_sub.sh"
+        ],
+        "module_list": [],
+        "time_limit": "23:0:0",
+        "account": "",
+        "qos": "",
+        "constraint_list": [],
+        "license_list": [],
+        "module_unload_list": [],
+        "envs": null,
+        "with_mpi": false
+    },
+    "deepmd_path": "source /root/dpmd/test_gpu_sub.sh && /opt/deepmd"
+}

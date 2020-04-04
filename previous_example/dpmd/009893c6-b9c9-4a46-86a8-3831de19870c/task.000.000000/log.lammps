@@ -1,0 +1,57 @@
+LAMMPS (31 Mar 2017)
+variable        NSTEPS          equal 1000
+variable        THERMO_FREQ     equal 10
+variable        DUMP_FREQ       equal 10
+variable        TEMP            equal 100.000000
+variable        PRES            equal -1.000000
+variable        TAU_T           equal 0.100000
+variable        TAU_P           equal 0.500000
+
+units           metal
+boundary        p p p
+atom_style      atomic
+
+neighbor        1.0 bin
+
+box          tilt large
+read_data       conf.lmp
+  triclinic box = (0 0 0) to (10 10 10) with tilt (0 0 0)
+  1 by 1 by 1 MPI processor grid
+  reading atoms ...
+  5 atoms
+change_box   all triclinic
+  triclinic box = (0 0 0) to (10 10 10) with tilt (0 0 0)
+mass            1 1.000000
+mass            2 12.000000
+pair_style      deepmd ../graph.002.pb ../graph.000.pb ../graph.003.pb ../graph.001.pb  ${THERMO_FREQ} model_devi.out
+pair_style      deepmd ../graph.002.pb ../graph.000.pb ../graph.003.pb ../graph.001.pb  10 model_devi.out
+pair_coeff
+
+thermo_style    custom step temp pe ke etotal press vol lx ly lz xy xz yz
+thermo          ${THERMO_FREQ}
+thermo          10
+dump            1 all custom ${DUMP_FREQ} traj/*.lammpstrj id type x y z
+dump            1 all custom 10 traj/*.lammpstrj id type x y z
+
+velocity        all create ${TEMP} 826479
+velocity        all create 100 826479
+fix             1 all nvt temp ${TEMP} ${TEMP} ${TAU_T}
+fix             1 all nvt temp 100 ${TEMP} ${TAU_T}
+fix             1 all nvt temp 100 100 ${TAU_T}
+fix             1 all nvt temp 100 100 0.1
+
+timestep        0.002000
+run             ${NSTEPS}
+run             1000
+Neighbor list info ...
+  update every 1 steps, delay 10 steps, check yes
+  max neighbors/atom: 2000, page size: 100000
+  master list distance cutoff = 6
+  ghost atom cutoff = 6
+  binsize = 3, bins = 4 4 4
+  1 neighbor lists, perpetual/occasional/extra = 1 0 0
+  (1) pair deepmd, perpetual
+      attributes: , newton on
+      pair build: full/bin/atomonly
+      stencil: full/bin/3d
+      bin: standard

@@ -1,0 +1,1 @@
+/public/data/deepmd-tutorial/cp2k_dpgen/iter.000000/00.train/graph.001.pb

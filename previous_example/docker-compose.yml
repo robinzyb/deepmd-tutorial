@@ -1,0 +1,17 @@
+version: '2.3'
+services:
+  dpgen:
+    image: cloudac7/dpgen
+    volumes:
+      - ..:/public/data/deepmd-tutorial-20190815
+  deepmd:
+    image: cloudac7/deepmd-kit:cuda-9.0-ssh
+    environment:
+      - deepmd_root=/opt/deepmd
+    runtime: nvidia
+    volumes:
+      - ../cp2k_dpgen.run3/dpmd:/root/dpmd
+  cp2k:
+    image: cloudac7/cp2k:v6.1
+    volumes:
+      - ../cp2k_dpgen.run3/cp2k:/root/cp2k

@@ -1,0 +1,83 @@
+{
+  "train": [
+    {
+      "machine": {
+        "machine_type": "local",
+        "hostname": "deepmd",
+        "port": 22,
+        "username": "root",
+        "password": "deepmdhost",
+        "work_path": "/root/dpmd"
+      },
+      "resources": {
+        "numb_node": 1,
+        "numb_gpu": 1,
+        "task_per_node": 4,
+        "partition": "all",
+        "exclude_list": [],
+        "mem_limit": 16,
+        "source_list": [
+          "/root/.bashrc",
+          "/root/dpmd/test_gpu_sub.sh"
+        ],
+        "module_list": [],
+        "time_limit": "23:0:0"
+      },
+      "deepmd_path": "source /root/dpmd/test_gpu_sub.sh && /opt/deepmd"
+    }
+  ],
+  "model_devi": [
+    {
+      "machine": {
+        "machine_type": "local",
+        "hostname": "deepmd",
+        "port": 22,
+        "username": "root",
+        "password": "deepmdhost",
+        "work_path": "/root/dpmd"
+      },
+      "resources": {
+        "numb_node": 1,
+        "numb_gpu": 1,
+        "task_per_node": 4,
+        "partition": "all",
+        "exclude_list": [],
+        "mem_limit":	16,
+        "source_list": [
+        ],
+        "module_list": [],
+        "time_limit": "23:0:0"
+      },
+      "command": "/root/lammps-patch_31Mar2017/src/lmp_serial",
+      "group_size": 10
+    }
+  ],
+  "fp": [
+    {
+      "machine": {
+        "machine_type": "local",
+        "hostname": "cp2k",
+        "port": 22,
+        "username": "root",
+        "password": "cp2khost",
+        "work_path": "/root/cp2k"
+      },
+      "resources": {
+        "cvasp": false,
+        "task_per_node": 4,
+        "numb_gpu": 1,
+        "exclude_list": [],
+        "mem_limit":	16,
+        "with_mpi": false,
+        "source_list": [
+        ],
+        "module_list": [],
+        "time_limit": "96:0:0",
+        "partition": "all",
+        "_comment": "that's Bel"
+      },
+      "command": "cp2k -i input.inp",
+      "group_size": 5 
+    }
+  ]
+}
